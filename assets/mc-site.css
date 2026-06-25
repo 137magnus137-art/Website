@@ -1,0 +1,11 @@
+/* mc-site.css - basic styling for Mythic Creations site (trimmed for brevity) */
+:root{--mc-nav-h:64px}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+.mc-nav{display:flex;gap:14px;padding:18px;background:#0b0710}
+.mc-nav a{color:#d4af72;text-decoration:none}
+.mc-nav a.is-active{font-weight:700;color:#f4d987}
+.mc-page{padding:calc(var(--mc-nav-h) + 40px) 28px 80px;color:#ece6d4}
+.card{background:rgba(255,255,255,0.03);padding:18px;border-radius:12px;margin-bottom:16px}
+.placeholder-card{background:rgba(255,255,255,0.02);padding:18px;border-radius:10px}
+.btn{display:inline-block;padding:10px 16px;border-radius:999px;background:#d4af72;color:#120714;text-decoration:none}
+.back-home{display:inline-block;margin-top:20px;color:rgba(236,230,212,0.7);text-decoration:none}
