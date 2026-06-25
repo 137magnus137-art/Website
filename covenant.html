@@ -3,8 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Covenant — Mythic Creations</title>
+  <title>The Covenant — Mythic Creations</title>
   <link rel="stylesheet" href="/site/assets/mc-site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --burgundy:      #4A0E2E;
+      --burgundy-2:    #2E0820;
+      --burgundy-deep: #1B0512;
+      --gold:          #D4AF37;
+      --gold-glow:     #f0d061;
+      --cream:         #FFF8E7;
+      --electric:      #00BFFF;
+      --char-edge:     #0a0508;
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 50% 30%, rgba(212,175,55,0.10), transparent 60%),
+        radial-gradient(ellipse at 50% 50%, var(--burgundy) 0%, var(--burgundy-2) 35%, var(--char-edge) 100%);
+      color: var(--cream);
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+  </style>
 </head>
 <body data-page="covenant">
 
@@ -12,17 +36,17 @@
 
 <div id="mc-nav-mount"></div>
 
-<main class="mc-page" data-testid="page-covenant">
-  <div class="eyebrow">Mythic Creations</div>
-  <h1>Covenant</h1>
-  <p class="lede">A feed of essays, updates, and special content. Becoming a member opens access to deeper content and announcements.</p>
+<main class="covenant-page" data-testid="page-covenant">
+  <div class="eyebrow">The Covenant</div>
+  <h1>Join the Order</h1>
+  <p class="lede">Become part of the legendary Mythic Creations community.</p>
 
   <div class="placeholder-card">
-    <h3>Membership opens soon</h3>
-    <p>We're working on the membership flow. For now the feed is visible but publishing is limited to administrators.</p>
+    <h3>This page is being forged</h3>
+    <p>Real copy and assets land here once you send the description. For now this is the structural shell so the nav and routing all connect end-to-end.</p>
   </div>
 
-  <a href="index.html" class="back-home">&larr; Back to main hall</a>
+  <a href="index.html" class="back-home" data-testid="back-home">&larr; Back to main hall</a>
 </main>
 
 <script src="/site/assets/mc-starfield.js"></script>

@@ -5,6 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Myth — Mythic Creations</title>
   <link rel="stylesheet" href="/site/assets/mc-site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --myth-bg:      #0a0612;
+      --myth-deep:    #0d0a1f;
+      --myth-purple:  #2d1547;
+      --myth-violet:  #6a2bd5;
+      --myth-cyan:    #5fe8d0;
+      --myth-gold:    #d4af72;
+      --myth-text:    #ece6d4;
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(106,43,213,0.18), transparent 60%),
+        radial-gradient(ellipse at 70% 100%, rgba(95,232,208,0.10), transparent 50%),
+        linear-gradient(180deg, var(--myth-bg) 0%, var(--myth-deep) 60%, #04030a 100%);
+      color: var(--myth-text);
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+  </style>
 </head>
 <body data-page="myth">
 
@@ -12,30 +36,17 @@
 
 <div id="mc-nav-mount"></div>
 
-<main class="mc-page" data-testid="page-myth">
+<main class="myth-page" data-testid="page-myth">
   <div class="eyebrow">Mythic Creations</div>
-  <h1>The Mythos</h1>
-  <p class="lede">A compendium of stories, character bios and locations that form the world.</p>
+  <h1>Myth</h1>
+  <p class="lede">The grand narratives that define our worlds.</p>
 
-  <div class="card">
-    <h2>Character Bios</h2>
-    <p class="lede">Short introductions to the principal figures.</p>
-    <a href="myth/character-bios.html" class="btn">Read</a>
+  <div class="placeholder-card">
+    <h3>This page is being forged</h3>
+    <p>Real copy and assets land here once you send the description. For now this is the structural shell so the nav and routing all connect end-to-end.</p>
   </div>
 
-  <div class="card">
-    <h2>History</h2>
-    <p class="lede">Major events and the timeline of the world.</p>
-    <a href="myth/history.html" class="btn">Explore</a>
-  </div>
-
-  <div class="card">
-    <h2>Locations</h2>
-    <p class="lede">Maps and descriptions of important places.</p>
-    <a href="myth/locations.html" class="btn">Maps</a>
-  </div>
-
-  <a href="index.html" class="back-home">&larr; Back to main hall</a>
+  <a href="index.html" class="back-home" data-testid="back-home">&larr; Back to main hall</a>
 </main>
 
 <script src="/site/assets/mc-starfield.js"></script>

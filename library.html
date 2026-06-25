@@ -3,8 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Library — Mythic Creations</title>
+  <title>The Library — Mythic Creations</title>
   <link rel="stylesheet" href="/site/assets/mc-site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- Library theme overrides ---------- */
+    :root {
+      --parchment: #F5E6C8;
+      --parchment-2: #E8D6B0;
+      --navy: #1A2A3A;
+      --navy-2: #243a52;
+      --navy-deep: #0F1B26;
+      --amber: #D4A373;
+      --amber-glow: #f7c98f;
+      --ink: #2a1f15;
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(212,163,115,0.10), transparent 60%),
+        radial-gradient(ellipse at 100% 100%, rgba(15,27,38,0.4), transparent 50%),
+        linear-gradient(180deg, #0c1620 0%, var(--navy-deep) 60%, #060a0e 100%);
+      color: var(--parchment);
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a { color: var(--amber-glow); }
+
+    .library-page {
+      position: relative;
+      z-index: 5;
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: calc(var(--mc-nav-h) + 56px) 28px 80px;
+    }
+  </style>
 </head>
 <body data-page="library">
 
@@ -12,17 +47,17 @@
 
 <div id="mc-nav-mount"></div>
 
-<main class="mc-page" data-testid="page-library">
-  <div class="eyebrow">Mythic Creations</div>
-  <h1>Library</h1>
-  <p class="lede">Covers, PDFs and downloadable material. Visit the Arkive for a broader collection.</p>
+<main class="library-page" data-testid="page-library">
+  <div class="eyebrow">Mythic Creations LLC</div>
+  <h1>The Library</h1>
+  <p class="lede">All tales, tomes, and legendary works stored in the sacred archive.</p>
 
   <div class="placeholder-card">
-    <h3>Coming soon</h3>
-    <p>PDFs and resource links will appear here when added.</p>
+    <h3>This page is being forged</h3>
+    <p>Real copy and assets land here once you send the description. For now this is the structural shell so the nav and routing all connect end-to-end.</p>
   </div>
 
-  <a href="index.html" class="back-home">&larr; Back to main hall</a>
+  <a href="index.html" class="back-home" data-testid="back-home">&larr; Back to main hall</a>
 </main>
 
 <script src="/site/assets/mc-starfield.js"></script>

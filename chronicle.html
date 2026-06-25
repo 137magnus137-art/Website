@@ -3,8 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chronicle — Mythic Creations</title>
+  <title>The Chronicle — Mythic Creations</title>
   <link rel="stylesheet" href="/site/assets/mc-site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --charcoal:    #2B2B2B;
+      --charcoal-2:  #1c1c1c;
+      --amber:       #D4A373;
+      --amber-glow:  #f4cd92;
+      --cyan:        #6FE3FF;
+      --cyan-soft:   rgba(111, 227, 255, 0.55);
+      --silver:      #a9adb4;
+      --ink:         #efe8d8;
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(212,163,115,0.07), transparent 50%),
+        linear-gradient(180deg, #1f1f22 0%, var(--charcoal) 50%, #161618 100%);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .chronicle-page {
+      position: relative;
+      z-index: 5;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: calc(var(--mc-nav-h) + 40px) 28px 100px;
+    }
+  </style>
 </head>
 <body data-page="chronicle">
 
@@ -12,17 +44,17 @@
 
 <div id="mc-nav-mount"></div>
 
-<main class="mc-page" data-testid="page-chronicle">
-  <div class="eyebrow">Mythic Creations</div>
-  <h1>Chronicle</h1>
-  <p class="lede">News and short-form stories from the hall. These post directly to the Covenant feed and can optionally be broadcast by email.</p>
+<main class="chronicle-page" data-testid="page-chronicle">
+  <div class="eyebrow">Mythic Creations LLC</div>
+  <h1>The Chronicle</h1>
+  <p class="lede">Updates, milestones, and the evolving story of Mythic Creations.</p>
 
   <div class="placeholder-card">
-    <h3>No posts yet</h3>
-    <p>When there are posts they appear here with the most recent first. Use the admin composer to add a new post.</p>
+    <h3>This page is being forged</h3>
+    <p>Real copy and assets land here once you send the description. For now this is the structural shell so the nav and routing all connect end-to-end.</p>
   </div>
 
-  <a href="index.html" class="back-home">&larr; Back to main hall</a>
+  <a href="index.html" class="back-home" data-testid="back-home">&larr; Back to main hall</a>
 </main>
 
 <script src="/site/assets/mc-starfield.js"></script>

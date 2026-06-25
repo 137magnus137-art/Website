@@ -3,43 +3,246 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mythic Creations</title>
+  <title>Mythic Creations – Forging Legends</title>
   <link rel="stylesheet" href="/site/assets/mc-site.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== INTRO SCREEN (page-only) ===== */
+    body { height: 100vh; overflow: hidden; }
+
+    #intro {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: #000000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      z-index: 1100; transition: opacity 1.2s ease;
+    }
+    #intro.fade-out { opacity: 0; pointer-events: none; }
+    #intro-gif, #intro-video { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+    #intro-video { width: auto; height: 100%; }
+
+    /* ===== MAIN MENU ===== */
+    #main-menu {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      display: none; flex-direction: column; align-items: center; justify-content: center;
+      background: #000000;
+      z-index: 500;
+      padding-top: var(--mc-nav-h);
+    }
+    #main-menu.active { display: flex; }
+
+    /* The starfield canvas sits behind everything in the menu */
+    #starfield { z-index: 1; }
+
+    /* Logo wrapper */
+    .logo-wrapper {
+      position: relative;
+      z-index: 10;
+      margin-bottom: 20px;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      border-radius: 16px;
+      padding: 12px;
+      backdrop-filter: blur(2px);
+      transition: all 0.3s ease;
+    }
+    .logo-wrapper:hover {
+      border-color: var(--mc-gold);
+      box-shadow: 0 0 25px rgba(201, 168, 76, 0.2);
+    }
+    .logo-frame {
+      position: relative;
+      display: inline-block;
+      line-height: 0;
+    }
+    #main-logo {
+      display: block;
+      max-width: 520px;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      animation: burnIn 1s ease-out forwards;
+      opacity: 0;
+    }
+
+    /* Phoenix Eye Hotspot (~4.5% × 8% ≈ square in px) */
+    .eye-secret {
+      position: absolute;
+      left: 48%; top: 35%;
+      width: 4.5%; height: 8%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 20;
+      background: transparent;
+    }
+    .eye-glimmer {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 220%; height: 220%;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+        rgba(255, 235, 150, 0.95) 0%,
+        rgba(255, 215, 0, 0.55) 25%,
+        rgba(201, 168, 76, 0.25) 55%,
+        transparent 75%);
+      opacity: 0;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      filter: blur(1px);
+      animation: eyeGlimmer 4s ease-in-out infinite;
+    }
+    @keyframes eyeGlimmer {
+      0%   { opacity: 0;    transform: translate(-50%, -50%) scale(0.6); filter: blur(1px) brightness(1); }
+      45%  { opacity: 0;    transform: translate(-50%, -50%) scale(0.6); filter: blur(1px) brightness(1); }
+      55%  { opacity: 0.85; transform: translate(-50%, -50%) scale(1.15); filter: blur(0.5px) brightness(1.6); }
+      65%  { opacity: 0;    transform: translate(-50%, -50%) scale(0.7); filter: blur(1px) brightness(1); }
+      100% { opacity: 0;    transform: translate(-50%, -50%) scale(0.6); filter: blur(1px) brightness(1); }
+    }
+
+    /* Compass menu */
+    .compass {
+      position: relative; z-index: 10; display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px; margin-top: 40px;
+    }
+    .menu-item {
+      background: transparent; border: 1px solid rgba(201, 168, 76, 0.3);
+      border-radius: 16px; padding: 28px 24px; min-width: 180px;
+      text-align: center; cursor: pointer; transition: all 0.3s ease;
+      backdrop-filter: blur(2px);
+      color: var(--mc-gold); text-decoration: none;
+    }
+    .menu-item:hover {
+      background: rgba(201, 168, 76, 0.1); border-color: var(--mc-gold);
+      box-shadow: 0 0 25px rgba(201, 168, 76, 0.2); transform: scale(1.02);
+    }
+    .menu-item .icon { font-size: 2rem; display: block; margin-bottom: 10px; }
+    .menu-item .label { font-family: Georgia, serif; font-size: 1.2rem; letter-spacing: 2px; }
+    .menu-item .sub { font-size: 0.75rem; color: var(--mc-gold-dim); margin-top: 6px; letter-spacing: 1px; }
+
+    @keyframes burnIn {
+      0%   { opacity: 0; filter: blur(10px); transform: scale(0.8); }
+      100% { opacity: 1; filter: blur(0); transform: scale(1); }
+    }
+
+    .skip-hint {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      font-size: 0.75rem; color: #555; letter-spacing: 1px; z-index: 1101;
+      animation: pulseText 2s ease-in-out infinite;
+    }
+    @keyframes pulseText { 0%, 100% { opacity: 0.4 } 50% { opacity: 0.8 } }
+
+    @media (max-width: 500px) {
+      #main-logo { max-width: 300px; }
+      .logo-wrapper { padding: 8px; margin-bottom: 15px; }
+      .compass { grid-template-columns: 1fr; gap: 15px; }
+      .menu-item { min-width: 150px; padding: 20px; }
+    }
+  </style>
 </head>
-<body data-page="home">
+<body>
 
-<canvas class="mc-starfield" data-testid="starfield"></canvas>
+<!-- ========== INTRO SCREEN ========== -->
+<div id="intro" data-testid="intro-screen">
+  <video id="intro-video" autoplay muted playsinline preload="auto"
+         poster="MC_Logo_main_Long_View1.jpg" data-testid="intro-video">
+    <source src="MC_Intro_Anim1.webm" type="video/webm">
+    <source src="MC_Intro_Anim1.mp4"  type="video/mp4">
+    <img src="MC_Intro_Anim1.gif" id="intro-gif" alt="Mythic Creations Intro" data-testid="intro-gif">
+  </video>
+  <div class="skip-hint" data-testid="skip-hint">Click anywhere to enter</div>
+</div>
 
+<!-- ========== TOP NAV ========== -->
 <div id="mc-nav-mount"></div>
 
-<main class="mc-page" data-testid="page-home">
-  <div class="eyebrow">Mythic Creations LLC</div>
-  <h1>Welcome to the Hall</h1>
-  <p class="lede">We forge stories, games, and art. Explore the Covenant, the Forge, the Arkive and more.</p>
+<!-- ========== MAIN MENU ========== -->
+<div id="main-menu" data-testid="main-menu">
+  <canvas id="starfield" class="mc-starfield" data-testid="starfield"></canvas>
 
-  <div class="card">
-    <h2>Latest</h2>
-    <p class="lede">Short updates and featured works appear here.</p>
-    <a href="chronicle.html" class="btn">Visit the Chronicle</a>
+  <div class="logo-wrapper" data-testid="logo-wrapper">
+    <div class="logo-frame">
+      <img src="MC_Logo_main_Long_View1.jpg" alt="Mythic Creations" id="main-logo" data-testid="main-logo">
+      <div class="eye-secret" id="eyeSecret" title="?" data-testid="eye-hotspot" aria-label="Phoenix eye secret">
+        <div class="eye-glimmer" data-testid="eye-glimmer"></div>
+      </div>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>Library</h2>
-    <p class="lede">A collection of PDFs, covers, and resources. Browse the library for downloads and reading.</p>
-    <a href="library.html" class="btn">Open the Library</a>
+  <div class="compass">
+    <a href="forge.html" class="menu-item" data-testid="menu-forge">
+      <span class="icon">&#x1F525;</span>
+      <span class="label">Enter the Forge</span>
+      <span class="sub">Begin your legend</span>
+    </a>
+    <a href="library.html" class="menu-item" data-testid="menu-library">
+      <span class="icon">&#x1F4D6;</span>
+      <span class="label">The Library</span>
+      <span class="sub">Tales stored</span>
+    </a>
+    <a href="chronicle.html" class="menu-item" data-testid="menu-chronicle">
+      <span class="icon">&#x1F4DC;</span>
+      <span class="label">The Chronicle</span>
+      <span class="sub">World updates</span>
+    </a>
+    <a href="covenant.html" class="menu-item" data-testid="menu-covenant">
+      <span class="icon">&#x2694;&#xFE0F;</span>
+      <span class="label">The Covenant</span>
+      <span class="sub">Join the order</span>
+    </a>
   </div>
+</div>
 
-  <div class="card">
-    <h2>Hexflow</h2>
-    <p class="lede">A small playable prototype with assets and a rulebook.</p>
-    <a href="hexflow/index.html" class="btn">Explore Hexflow</a>
-  </div>
+<script>
+(function () {
+  const intro = document.getElementById('intro');
+  const mainMenu = document.getElementById('main-menu');
+  const introVid = document.getElementById('intro-video');
+  let introEnded = false;
 
-  <a href="myth.html" class="back-home">Read the Mythos →</a>
-</main>
+  // ?skip=1  →  jump straight to the main hub (used by the nav brand link)
+  // Also catch the case where the user navigates back to /site/index.html
+  // after having entered the hub already; replay the intro feels wrong.
+  const params = new URLSearchParams(window.location.search);
+  const skipFromUrl = params.get('skip') === '1';
+  const skipStored  = sessionStorage.getItem('mc.skipIntro') === '1';
+  if (skipFromUrl || skipStored) {
+    intro.style.display = 'none';
+    mainMenu.classList.add('active');
+    introEnded = true;
+    if (introVid) { try { introVid.pause(); } catch (e) {} }
+  }
+  // Remember they've seen the intro within this tab session
+  sessionStorage.setItem('mc.skipIntro', '1');
+
+  intro.addEventListener('click', function () {
+    if (!introEnded) showMenu();
+  });
+
+  // Use the video's natural end (~15 s) as the auto-dismiss trigger; fallback timer
+  if (introVid) {
+    introVid.addEventListener('ended', function () { if (!introEnded) showMenu(); });
+  }
+  setTimeout(function () {
+    if (!introEnded) showMenu();
+  }, 20000);
+
+  function showMenu() {
+    if (introEnded) return;
+    introEnded = true;
+    if (introVid) { try { introVid.pause(); } catch (e) {} }
+    intro.classList.add('fade-out');
+    setTimeout(function () {
+      intro.style.display = 'none';
+      mainMenu.classList.add('active');
+    }, 1200);
+  }
+
+  document.getElementById('eyeSecret').addEventListener('click', function (e) {
+    e.stopPropagation();
+    alert('The phoenix watches...');
+  });
+})();
+</script>
 
 <script src="/site/assets/mc-starfield.js"></script>
 <script src="/site/assets/mc-nav.js"></script>
